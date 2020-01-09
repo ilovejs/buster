@@ -1,4 +1,5 @@
 {
     "restructuredtext.confPath": "",
-    "python.pythonPath": "/Users/mike/anaconda3/bin/python"
+    "python.pythonPath": "/Users/mike/anaconda3/bin/python",
+    "python.formatting.provider": "black"
 }
