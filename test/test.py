@@ -5,7 +5,6 @@ import fnmatch
 import shutil
 import socketserver
 import http.server
-from docopt import docopt
 from time import gmtime, strftime
 from git import Repo
 from pyquery import PyQuery
@@ -30,6 +29,8 @@ def bust():
     def fixLinks(text, parser):
         # JQuery translator
         d = PyQuery(bytes(bytearray(text, encoding="utf-8")), parser=parser)
+        
+        # fix a tag href property
         for element in d("a"):
             e = PyQuery(element)
 
@@ -40,16 +41,31 @@ def bust():
                 # point index file to / as server location
                 new_href = re.sub(r"/index\.html$", "/", new_href)
                 e.attr("href", new_href)
-                print("\t", href, "=>", new_href)
+                # print("\t", href, "=>", new_href)
+
+        # fix wrong jpgpg case
+        for element in d("img"):
+            e = PyQuery(element)
+            attr_name = "srcset"
+            print("img:", e)
+            attr = e.attr(attr_name)
+            if attr:
+                new_attr = re.sub(r"\.jpgg ", ".jpg ", attr)
+                new_attr = re.sub(r"\.jpgpg ", ".jpg ", new_attr)
+                new_attr = re.sub(r"\.jpgjpg ", ".jpg ", new_attr)
+                # upsert element attribute
+                e.attr(attr_name, new_attr)
+                print("\t", attr, "=>", new_attr)
 
         if parser == "html":
             return d.html(method="html").encode("utf8")
         return d.__unicode__().encode("utf8")
 
-    # fix links in all html files
+    # Execute fix on every files !
     for root, _, filenames in os.walk(static_path):
         for filename in fnmatch.filter(filenames, "*.html"):
             filepath = os.path.join(root, filename)
+            # default parser
             parser = "html"
 
             if root.endswith("/rss"):  # rename rss index.html to index.rss

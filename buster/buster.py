@@ -67,6 +67,7 @@ def main():
         def fixLinks(text, parser):
             # JQuery translator
             d = PyQuery(bytes(bytearray(text, encoding='utf-8')), parser=parser)
+            
             for element in d('a'):
                 e = PyQuery(element)
 
@@ -78,6 +79,20 @@ def main():
                     new_href = re.sub(r'/index\.html$', '/', new_href)
                     e.attr('href', new_href)
                     print("\t", href, "=>", new_href)
+        
+            # fix wrong jpgpg case
+            for element in d("img"):
+                e = PyQuery(element)
+                attr_name = "srcset"
+                print("img:", e)
+                attr = e.attr(attr_name)
+                if attr:
+                    new_attr = re.sub(r"\.jpgg ", ".jpg ", attr)
+                    new_attr = re.sub(r"\.jpgpg ", ".jpg ", new_attr)
+                    new_attr = re.sub(r"\.jpgjpg ", ".jpg ", new_attr)
+                    # upsert element attribute
+                    e.attr(attr_name, new_attr)
+                    print("\t", attr, "=>", new_attr)
 
             if parser == 'html':
                 return d.html(method='html').encode('utf8')
