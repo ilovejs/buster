@@ -86,13 +86,14 @@ def main():
                     newfilepath = os.path.join(root, os.path.splitext(filename)[0] + ".rss")
                     os.rename(filepath, newfilepath)
                     filepath = newfilepath
-                with open(filepath) as f:
-                    filetext = f.read().decode('utf8')
+                with open(filepath, encoding='utf8') as f:
+                    filetext = f.read()
 
                 print("fixing links in ", filepath)
 
                 newtext = fixLinks(filetext, parser)
-                with open(filepath, 'w') as f:
+                # https://stackoverflow.com/questions/5512811/builtins-typeerror-must-be-str-not-bytes
+                with open(filepath, 'wb') as f:
                     f.write(newtext)
 
     elif arguments['preview']:
