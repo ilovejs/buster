@@ -13,8 +13,11 @@ Warning! This project is a hack. It's not official. But it works for me.
 Updates
 -------
 
-Updated to Python 3.7 !
+I Updated to Python 3.7 ! and fix the diff with 2to3
 
+> (optional) sa base
+> python setup.py install
+> 
 
 The interface
 -------------
