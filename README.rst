@@ -10,6 +10,12 @@ Start with a clean, no commits Github repository.
 
 Warning! This project is a hack. It's not official. But it works for me.
 
+Updates
+-------
+
+Updated to Python 3.7 !
+
+
 The interface
 -------------
 
