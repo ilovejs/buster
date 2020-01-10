@@ -15,9 +15,18 @@ Updates
 
 I Updated to Python 3.7 ! and fix the diff with 2to3
 
+* Switch to Conda python not system one
+
 > (optional) sa base
-> python setup.py install
-> 
+
+* Force Install:
+> pip install buster --force-reinstall
+
+* Install Dev:
+
+> python setup.py install 
+
+
 
 The interface
 -------------
