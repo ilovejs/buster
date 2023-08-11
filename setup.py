@@ -15,5 +15,5 @@ setup(name="buster",
       license="MIT",
       packages=["buster"],
       entry_points={"console_scripts": ["buster = buster.buster:main"]},
-      install_requires=['GitPython==0.3.5', 'async==0.6.2', 'docopt==0.6.2', 'gitdb==0.6.4', 'pyquery==1.4.1', 'smmap==0.9.0']
+      install_requires=['GitPython==3.1.32', 'async==0.6.2', 'docopt==0.6.2', 'gitdb==0.6.4', 'pyquery==1.4.1', 'smmap==0.9.0']
     )
